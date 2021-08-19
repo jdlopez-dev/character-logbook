@@ -37,6 +37,6 @@ jobs:
         run: npm run test:ci
 
       - name: prettier check
-        run: 
+        run: |
           npm run prettier
           npm run prettier:check
