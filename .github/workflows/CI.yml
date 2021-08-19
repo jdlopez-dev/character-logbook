@@ -14,8 +14,7 @@ on:
     paths-ignore:
     - '**.md'
     branches:
-      - 'sprint/**
-
+      - 'sprint/**'
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
