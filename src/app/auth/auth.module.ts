@@ -9,6 +9,7 @@ import { MaterialModule } from '@app/material.module';
 import { I18nModule } from '@app/i18n';
 import { AuthRoutingModule } from './auth-routing.module';
 import { LoginComponent } from './login.component';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 
 @NgModule({
   imports: [
@@ -19,6 +20,7 @@ import { LoginComponent } from './login.component';
     FlexLayoutModule,
     MaterialModule,
     I18nModule,
+    AngularFireAuthModule,
     AuthRoutingModule,
   ],
   declarations: [LoginComponent],

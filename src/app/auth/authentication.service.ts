@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, from } from 'rxjs';
 
-import { Credentials, CredentialsService } from './credentials.service';
+import { AngularFireAuth } from '@angular/fire/auth';
+
+import { CredentialsService } from './credentials.service';
+import { UserCredential } from '@app/@shared/models/user-credential.interface';
 
 export interface LoginContext {
   username: string;
@@ -17,21 +20,30 @@ export interface LoginContext {
   providedIn: 'root',
 })
 export class AuthenticationService {
-  constructor(private credentialsService: CredentialsService) {}
+  constructor(private afAuth: AngularFireAuth, private credentialsService: CredentialsService) {}
 
   /**
    * Authenticates the user.
    * @param context The login parameters.
    * @return The user credentials.
    */
-  login(context: LoginContext): Observable<Credentials> {
-    // Replace by proper authentication call
-    const data = {
-      username: context.username,
-      token: '123456',
-    };
-    this.credentialsService.setCredentials(data, context.remember);
-    return of(data);
+  login(context: LoginContext): Observable<UserCredential> {
+    return from(
+      this.afAuth.signInWithEmailAndPassword(context.username, context.password).then((userCredential) => {
+        const user = userCredential.user;
+        const data: UserCredential = {
+          displayName: user?.displayName,
+          email: user?.email,
+          phoneNumber: user?.phoneNumber,
+          photoURL: user?.photoURL,
+          providerId: user?.providerId,
+          emailVerified: user?.emailVerified,
+          uid: user?.uid,
+        };
+        this.credentialsService.setCredentials(data, context.remember);
+        return data;
+      })
+    );
   }
 
   /**
@@ -41,6 +53,10 @@ export class AuthenticationService {
   logout(): Observable<boolean> {
     // Customize credentials invalidation here
     this.credentialsService.setCredentials();
-    return of(true);
+    return from(
+      this.afAuth.signOut().then(() => {
+        return true;
+      })
+    );
   }
 }
