@@ -10,7 +10,6 @@ import { MockAngularFireAuth } from './mocks/angular-fire-auth.service.mock';
 describe('AuthenticationService', () => {
   let authenticationService: AuthenticationService;
   let credentialsService: MockCredentialsService;
-  let angularFireAuth: MockAngularFireAuth;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -22,7 +21,7 @@ describe('AuthenticationService', () => {
     });
 
     authenticationService = TestBed.inject(AuthenticationService);
-    angularFireAuth = TestBed.inject(AngularFireAuth);
+    TestBed.inject(AngularFireAuth);
     credentialsService = TestBed.inject(CredentialsService);
     credentialsService.credentials = null;
     spyOn(credentialsService, 'setCredentials').and.callThrough();
