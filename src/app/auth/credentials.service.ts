@@ -1,10 +1,5 @@
 import { Injectable } from '@angular/core';
-
-export interface Credentials {
-  // Customize received credentials here
-  username: string;
-  token: string;
-}
+import { UserCredential } from '@app/@shared/models/user-credential.interface';
 
 const credentialsKey = 'credentials';
 
@@ -16,7 +11,7 @@ const credentialsKey = 'credentials';
   providedIn: 'root',
 })
 export class CredentialsService {
-  private _credentials: Credentials | null = null;
+  private _credentials: UserCredential | null = null;
 
   constructor() {
     const savedCredentials = sessionStorage.getItem(credentialsKey) || localStorage.getItem(credentialsKey);
@@ -37,7 +32,7 @@ export class CredentialsService {
    * Gets the user credentials.
    * @return The user credentials or null if the user is not authenticated.
    */
-  get credentials(): Credentials | null {
+  get credentials(): UserCredential | null {
     return this._credentials;
   }
 
@@ -48,7 +43,7 @@ export class CredentialsService {
    * @param credentials The user credentials.
    * @param remember True to remember credentials across sessions.
    */
-  setCredentials(credentials?: Credentials, remember?: boolean) {
+  setCredentials(credentials?: UserCredential, remember?: boolean) {
     this._credentials = credentials || null;
 
     if (credentials) {
