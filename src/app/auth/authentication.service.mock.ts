@@ -1,23 +1,19 @@
+import { UserCredential } from '@app/@shared/models/user-credential.interface';
 import { Observable, of } from 'rxjs';
 
 import { LoginContext } from './authentication.service';
-import { Credentials } from './credentials.service';
 
 export class MockAuthenticationService {
-  credentials: Credentials | null = {
-    username: 'test',
-    token: '123',
+  credentials: UserCredential = {
+    displayName: 'test',
+    uid: '123',
   };
 
-  login(context: LoginContext): Observable<Credentials> {
-    return of({
-      username: context.username,
-      token: '123456',
-    });
+  login(context: LoginContext): Observable<UserCredential> {
+    return of(this.credentials);
   }
 
   logout(): Observable<boolean> {
-    this.credentials = null;
     return of(true);
   }
 }
