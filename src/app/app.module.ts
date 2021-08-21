@@ -13,6 +13,8 @@ import { HomeModule } from './home/home.module';
 import { ShellModule } from './shell/shell.module';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { environment } from '@env/environment';
+import { AngularFireModule } from '@angular/fire';
 
 @NgModule({
   imports: [
@@ -27,6 +29,7 @@ import { AppRoutingModule } from './app-routing.module';
     ShellModule,
     HomeModule,
     AuthModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
     AppRoutingModule, // must be imported as the last module as it contains the fallback route
   ],
   declarations: [AppComponent],

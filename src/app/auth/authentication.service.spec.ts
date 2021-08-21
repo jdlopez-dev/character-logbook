@@ -1,8 +1,11 @@
 import { TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { UserCredential } from '@app/@shared/models/user-credential.interface';
 
 import { AuthenticationService } from './authentication.service';
-import { CredentialsService, Credentials } from './credentials.service';
+import { CredentialsService } from './credentials.service';
 import { MockCredentialsService } from './credentials.service.mock';
+import { MockAngularFireAuth } from './mocks/angular-fire-auth.service.mock';
 
 describe('AuthenticationService', () => {
   let authenticationService: AuthenticationService;
@@ -10,10 +13,15 @@ describe('AuthenticationService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [{ provide: CredentialsService, useClass: MockCredentialsService }, AuthenticationService],
+      providers: [
+        { provide: CredentialsService, useClass: MockCredentialsService },
+        { provide: AngularFireAuth, useClass: MockAngularFireAuth },
+        AuthenticationService,
+      ],
     });
 
     authenticationService = TestBed.inject(AuthenticationService);
+    TestBed.inject(AngularFireAuth);
     credentialsService = TestBed.inject(CredentialsService);
     credentialsService.credentials = null;
     spyOn(credentialsService, 'setCredentials').and.callThrough();
@@ -31,7 +39,7 @@ describe('AuthenticationService', () => {
       // Assert
       request.subscribe((credentials) => {
         expect(credentials).toBeDefined();
-        expect(credentials.token).toBeDefined();
+        expect(credentials.uid).toBeDefined();
       });
     }));
 
@@ -49,8 +57,8 @@ describe('AuthenticationService', () => {
       request.subscribe(() => {
         expect(credentialsService.isAuthenticated()).toBe(true);
         expect(credentialsService.credentials).not.toBeNull();
-        expect((credentialsService.credentials as Credentials).token).toBeDefined();
-        expect((credentialsService.credentials as Credentials).token).not.toBeNull();
+        expect((credentialsService.credentials as UserCredential).uid).toBeDefined();
+        expect((credentialsService.credentials as UserCredential).uid).not.toBeNull();
       });
     }));
 

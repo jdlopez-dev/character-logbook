@@ -12,6 +12,9 @@ import { MockAuthenticationService } from '@app/auth/authentication.service.mock
 import { MockCredentialsService } from '@app/auth/credentials.service.mock';
 import { I18nModule } from '@app/i18n';
 import { LoginComponent } from './login.component';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireModule } from '@angular/fire';
+import { MockFirebaseConfig } from './mocks/angular-fire-auth.service.mock';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -29,6 +32,8 @@ describe('LoginComponent', () => {
           TranslateModule.forRoot(),
           I18nModule,
           ReactiveFormsModule,
+          AngularFireModule.initializeApp(MockFirebaseConfig),
+          AngularFireAuthModule,
         ],
         declarations: [LoginComponent],
       }).compileComponents();
