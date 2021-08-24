@@ -7,7 +7,7 @@
     "build": "npm run write:env -s && ng build",
     "start": "npm run write:env-dev -s && ng serve --proxy-config proxy.conf.js",
     "lint": "ng lint && stylelint \"src/**/*.scss\" --syntax scss",
-    "test": "npm run write:env -s && ng test",
+    "test": "npm run write:env-dev -s && ng test",
     "test:ci": "npm run write:env -s && npm run lint -s && ng test --configuration=ci",
     "translations:extract": "ngx-translate-extract --input ./src --output ./src/translations/template.json --format=json --clean --sort",
     "compodoc": "compodoc -p tsconfig.json -d docs/generated -s -o",

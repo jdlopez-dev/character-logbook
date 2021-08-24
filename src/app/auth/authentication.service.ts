@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, from } from 'rxjs';
 
 import { AngularFireAuth } from '@angular/fire/auth';
+import firebase from 'firebase/app';
 
 import { CredentialsService } from './credentials.service';
 import { UserCredential } from '@app/@shared/models/user-credential.interface';
@@ -27,7 +28,10 @@ export class AuthenticationService {
    * @param context The login parameters.
    * @return The user credentials.
    */
-  login(context: LoginContext): Observable<UserCredential> {
+  async login(context: LoginContext): Promise<Observable<UserCredential>> {
+    var persistence = this.getPersistence(context);
+
+    await this.afAuth.setPersistence(persistence);
     return from(
       this.afAuth.signInWithEmailAndPassword(context.username, context.password).then((userCredential) => {
         const user = userCredential.user;
@@ -58,5 +62,9 @@ export class AuthenticationService {
         return true;
       })
     );
+  }
+
+  private getPersistence(context: LoginContext) {
+    return context.remember ? firebase.auth.Auth.Persistence.LOCAL : firebase.auth.Auth.Persistence.SESSION;
   }
 }

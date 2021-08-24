@@ -28,9 +28,9 @@ describe('AuthenticationService', () => {
   });
 
   describe('login', () => {
-    it('should return credentials', fakeAsync(() => {
+    it('should return credentials', fakeAsync(async () => {
       // Act
-      const request = authenticationService.login({
+      const request = await authenticationService.login({
         username: 'toto',
         password: '123',
       });
@@ -43,11 +43,11 @@ describe('AuthenticationService', () => {
       });
     }));
 
-    it('should authenticate user', fakeAsync(() => {
+    it('should authenticate user', fakeAsync(async () => {
       expect(credentialsService.isAuthenticated()).toBe(false);
 
       // Act
-      const request = authenticationService.login({
+      const request = await authenticationService.login({
         username: 'toto',
         password: '123',
       });
@@ -62,9 +62,9 @@ describe('AuthenticationService', () => {
       });
     }));
 
-    it('should persist credentials for the session', fakeAsync(() => {
+    it('should persist credentials for the session', fakeAsync(async () => {
       // Act
-      const request = authenticationService.login({
+      const request = await authenticationService.login({
         username: 'toto',
         password: '123',
       });
@@ -77,9 +77,9 @@ describe('AuthenticationService', () => {
       });
     }));
 
-    it('should persist credentials across sessions', fakeAsync(() => {
+    it('should persist credentials across sessions', fakeAsync(async () => {
       // Act
-      const request = authenticationService.login({
+      const request = await authenticationService.login({
         username: 'toto',
         password: '123',
         remember: true,
@@ -95,9 +95,9 @@ describe('AuthenticationService', () => {
   });
 
   describe('logout', () => {
-    it('should clear user authentication', fakeAsync(() => {
+    it('should clear user authentication', fakeAsync(async () => {
       // Arrange
-      const loginRequest = authenticationService.login({
+      const loginRequest = await authenticationService.login({
         username: 'toto',
         password: '123',
       });

@@ -29,6 +29,8 @@ export class MockAngularFireAuth {
     });
   }
 
+  setPersistence(persistence: string) {}
+
   signOut() {
     return new Promise((resolve, reject) => {
       resolve(true);
