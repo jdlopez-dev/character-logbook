@@ -27,8 +27,9 @@ export class HeaderComponent implements OnInit {
   }
 
   get username(): string {
-    const userDisplayName = this.credentialsService.getUserDisplayName();
-    return userDisplayName;
+    const credentials = this.credentialsService.credentials;
+    var user = credentials?.displayName ?? credentials?.email ?? '';
+    return user;
   }
 
   get title(): string {

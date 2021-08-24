@@ -65,6 +65,6 @@ export class AuthenticationService {
   }
 
   private getPersistence(context: LoginContext) {
-    return context.remember ? firebase.auth.Auth.Persistence.LOCAL : firebase.auth.Auth.Persistence.SESSION;
+    return context.remember ? firebase.auth?.Auth.Persistence.LOCAL : firebase.auth?.Auth.Persistence.SESSION;
   }
 }
