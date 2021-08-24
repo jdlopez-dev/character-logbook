@@ -9,9 +9,12 @@
 }
 
 .brand {
-  color: mat-color($app-primary, "default-contrast");
-  text-decoration: none;
-  padding-right: 1rem;
+  height: 95%;
+  width: auto;
+  cursor: pointer;
+  background: mat-color($app-primary, "lighter");
+  border-radius: 0.5rem;
+  padding: 0.3rem;
 }
 
 .menu-button {
