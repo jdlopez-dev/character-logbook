@@ -26,9 +26,9 @@ export class HeaderComponent implements OnInit {
     this.authenticationService.logout().subscribe(() => this.router.navigate(['/login'], { replaceUrl: true }));
   }
 
-  get username(): string | null | undefined {
-    const credentials = this.credentialsService.credentials;
-    return credentials ? credentials.displayName : null;
+  get username(): string {
+    const userDisplayName = this.credentialsService.getUserDisplayName();
+    return userDisplayName;
   }
 
   get title(): string {

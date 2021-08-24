@@ -54,4 +54,8 @@ export class CredentialsService {
       localStorage.removeItem(credentialsKey);
     }
   }
+
+  getUserDisplayName(): string {
+    return this._credentials?.displayName ?? this._credentials?.email ?? '';
+  }
 }
