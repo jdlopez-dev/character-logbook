@@ -8,9 +8,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 
 import { RouteReusableStrategy, ApiPrefixInterceptor, ErrorHandlerInterceptor, SharedModule } from '@shared';
-import { AuthModule } from '@app/auth';
-import { HomeModule } from './home/home.module';
-import { ShellModule } from './shell/shell.module';
+import { AuthModule } from '@features/auth';
+import { HomeModule } from '@features/home/home.module';
+import { ShellModule } from '@features/shell/shell.module';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { environment } from '@env/environment';
