@@ -12,5 +12,7 @@
   "Username is required": "Se requiere nombre de usuario",
   "Username or password incorrect.": "Usuario o contraseña incorrectos.",
   "Remember me": "Recuérdame",
-  "Version": "Versión"
+  "Version": "Versión",
+  "sign-up-link": "Regístrate",
+  "sign-up-message": "¿No tienes una cuenta?"
 }
