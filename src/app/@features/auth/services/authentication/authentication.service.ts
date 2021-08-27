@@ -25,22 +25,23 @@ export class AuthenticationService {
    */
   async login(context: LoginContext): Promise<Observable<UserCredential>> {
     var persistence = this.getPersistence(context);
-
     await this.afAuth.setPersistence(persistence);
     return from(
-      this.afAuth.signInWithEmailAndPassword(context.email, context.password).then((userCredential) => {
-        const user = userCredential.user;
-        const data: UserCredential = {
-          displayName: user?.displayName,
-          email: user?.email,
-          phoneNumber: user?.phoneNumber,
-          photoURL: user?.photoURL,
-          providerId: user?.providerId,
-          emailVerified: user?.emailVerified,
-          uid: user?.uid,
-        };
-        this.credentialsService.setCredentials(data, context.remember);
-        return data;
+      this.afAuth.signInWithEmailAndPassword(context.email, context.password).then((data) => {
+        const userCredential: UserCredential = this.GetUserCredential(data.user);
+        this.credentialsService.setCredentials(userCredential, context.remember);
+        return userCredential;
+      })
+    );
+  }
+
+  signUp(context: LoginContext): Observable<UserCredential> {
+    console.log(context);
+    return from(
+      this.afAuth.createUserWithEmailAndPassword(context.email, context.password).then((data) => {
+        const userCredential: UserCredential = this.GetUserCredential(data.user);
+        this.credentialsService.setCredentials(userCredential, context.remember);
+        return userCredential;
       })
     );
   }
@@ -61,5 +62,17 @@ export class AuthenticationService {
 
   private getPersistence(context: LoginContext) {
     return context.remember ? firebase.auth?.Auth.Persistence.LOCAL : firebase.auth?.Auth.Persistence.SESSION;
+  }
+
+  private GetUserCredential(user: firebase.User | null): UserCredential {
+    return {
+      displayName: user?.displayName,
+      email: user?.email,
+      phoneNumber: user?.phoneNumber,
+      photoURL: user?.photoURL,
+      providerId: user?.providerId,
+      emailVerified: user?.emailVerified,
+      uid: user?.uid,
+    };
   }
 }

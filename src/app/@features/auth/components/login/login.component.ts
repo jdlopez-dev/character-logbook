@@ -36,7 +36,6 @@ export class LoginComponent implements OnInit {
 
   async login() {
     this.isLoading = true;
-    console.log(this.loginForm.value);
     const login$ = await this.authenticationService.login(this.loginForm.value);
     login$
       .pipe(
@@ -57,6 +56,31 @@ export class LoginComponent implements OnInit {
           this.error = error;
         },
         complete: () => log.debug(`Login task complete`),
+      });
+  }
+
+  signUp() {
+    this.isLoading = true;
+    const signUp$ = this.authenticationService.signUp(this.signUpForm.value);
+    signUp$
+      .pipe(
+        finalize(() => {
+          this.loginForm.markAsPristine();
+          this.isLoading = false;
+        }),
+        untilDestroyed(this)
+      )
+      .subscribe({
+        next: (credentials) => {
+          var user = credentials.displayName ?? credentials.email;
+          log.debug(`${user} successfully logged in`);
+          this.router.navigate([this.route.snapshot.queryParams.redirect || '/'], { replaceUrl: true });
+        },
+        error: (error) => {
+          log.debug(`Create account error: ${error}`);
+          this.error = error;
+        },
+        complete: () => log.debug(`Create account complete`),
       });
   }
 

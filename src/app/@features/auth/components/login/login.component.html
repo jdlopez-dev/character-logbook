@@ -49,7 +49,7 @@
           </button>
         </div>
       </form>
-      <form (ngSubmit)="login()" [formGroup]="signUpForm" novalidate *ngIf="!isLoginForm">
+      <form (ngSubmit)="signUp()" [formGroup]="signUpForm" novalidate *ngIf="!isLoginForm">
         <div class="login-error" [hidden]="!error || isLoading" translate>login.error</div>
         <br />
         <div class="login-fields" fxLayout="column">
