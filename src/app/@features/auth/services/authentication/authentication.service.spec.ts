@@ -31,7 +31,7 @@ describe('AuthenticationService', () => {
     it('should return credentials', fakeAsync(async () => {
       // Act
       const request = await authenticationService.login({
-        username: 'toto',
+        email: 'toto',
         password: '123',
       });
       tick();
@@ -48,7 +48,7 @@ describe('AuthenticationService', () => {
 
       // Act
       const request = await authenticationService.login({
-        username: 'toto',
+        email: 'toto',
         password: '123',
       });
       tick();
@@ -65,7 +65,7 @@ describe('AuthenticationService', () => {
     it('should persist credentials for the session', fakeAsync(async () => {
       // Act
       const request = await authenticationService.login({
-        username: 'toto',
+        email: 'toto',
         password: '123',
       });
       tick();
@@ -80,7 +80,7 @@ describe('AuthenticationService', () => {
     it('should persist credentials across sessions', fakeAsync(async () => {
       // Act
       const request = await authenticationService.login({
-        username: 'toto',
+        email: 'toto',
         password: '123',
         remember: true,
       });
@@ -98,7 +98,7 @@ describe('AuthenticationService', () => {
     it('should clear user authentication', fakeAsync(async () => {
       // Arrange
       const loginRequest = await authenticationService.login({
-        username: 'toto',
+        email: 'toto',
         password: '123',
       });
       tick();

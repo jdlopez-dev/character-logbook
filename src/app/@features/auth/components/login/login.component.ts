@@ -19,7 +19,9 @@ export class LoginComponent implements OnInit {
   version: string | null = environment.version;
   error: string | undefined;
   loginForm!: FormGroup;
+  signUpForm!: FormGroup;
   isLoading = false;
+  isLoginForm = true;
 
   constructor(
     private router: Router,
@@ -34,6 +36,7 @@ export class LoginComponent implements OnInit {
 
   async login() {
     this.isLoading = true;
+    console.log(this.loginForm.value);
     const login$ = await this.authenticationService.login(this.loginForm.value);
     login$
       .pipe(
@@ -57,11 +60,20 @@ export class LoginComponent implements OnInit {
       });
   }
 
+  changeLoginForm() {
+    this.isLoginForm = !this.isLoginForm;
+  }
+
   private createForm() {
     this.loginForm = this.formBuilder.group({
-      username: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
       remember: true,
+    });
+
+    this.signUpForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required],
     });
   }
 }

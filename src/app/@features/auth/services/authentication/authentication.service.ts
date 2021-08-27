@@ -28,7 +28,7 @@ export class AuthenticationService {
 
     await this.afAuth.setPersistence(persistence);
     return from(
-      this.afAuth.signInWithEmailAndPassword(context.username, context.password).then((userCredential) => {
+      this.afAuth.signInWithEmailAndPassword(context.email, context.password).then((userCredential) => {
         const user = userCredential.user;
         const data: UserCredential = {
           displayName: user?.displayName,
