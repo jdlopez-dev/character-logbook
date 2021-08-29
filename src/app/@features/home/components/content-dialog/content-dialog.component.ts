@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { finalize } from 'rxjs/operators';
-import { Content } from '../../models/content.interface';
+import { Content, ContentType } from '../../models/content.interface';
 import { ContentService } from '../../services/content.service';
 import { Logger, UntilDestroy, untilDestroyed } from '@shared';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -20,6 +20,7 @@ export class ContentDialogComponent implements OnInit {
   form!: FormGroup;
   error: string | undefined;
   isLoading = false;
+  isEditor = false;
 
   constructor(
     private translateService: TranslateService,
@@ -27,9 +28,10 @@ export class ContentDialogComponent implements OnInit {
     private contentService: ContentService,
     private formBuilder: FormBuilder,
     private dialogRef: MatDialogRef<ContentDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) { name }: Content
+    @Inject(MAT_DIALOG_DATA) { name, description, contentType, id }: Content
   ) {
-    this.createForm();
+    this.isEditor = id ? true : false;
+    this.createForm(name, description, contentType, id);
   }
 
   ngOnInit(): void {}
@@ -60,10 +62,27 @@ export class ContentDialogComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  private createForm() {
+  update() {
+    var response = this.contentService.updateContent(this.form.value);
+    if (response != null) {
+      this.snackBar.open(this.translateService.instant('content.dialog.updateMessage'), '', {
+        duration: 5000,
+      });
+    }
+    this.dialogRef.close();
+  }
+
+  private createForm(
+    name: string,
+    description: string | undefined | null,
+    contentType: ContentType,
+    id: string | null | undefined
+  ) {
     this.form = this.formBuilder.group({
-      name: ['', [Validators.required]],
-      contentType: ['', Validators.required],
+      name: [name, Validators.required],
+      contentType: [contentType, Validators.required],
+      description: [description],
+      id: [id],
     });
   }
 }

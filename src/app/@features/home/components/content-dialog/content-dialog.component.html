@@ -1,6 +1,7 @@
 <div fxLayout="column" fxLayoutAlign="space-around">
-  <h2 mat-dialog-title fxLayoutAlign="center" translate>content.dialog.title</h2>
-
+  <h2 mat-dialog-title fxLayoutAlign="center">
+    {{ (isEditor ? 'content.dialog.title.edit' : 'content.dialog.title.creation') | translate }}
+  </h2>
   <mat-dialog-content [formGroup]="form">
     <div class="login-error" [hidden]="!error" translate>login.error</div>
     <br />
@@ -20,9 +21,9 @@
     <mat-form-field [hideRequiredMarker]="true" appearance="fill">
       <mat-label translate>content.dialog.placeholderContentType</mat-label>
       <mat-select formControlName="contentType" required>
-        <mat-option value="book">content.dialog.optionBook</mat-option>
-        <mat-option value="film">content.dialog.optionFilm</mat-option>
-        <mat-option value="game">content.dialog.optionGame</mat-option>
+        <mat-option value="BOOK">content.dialog.optionBook</mat-option>
+        <mat-option value="FILM">content.dialog.optionFilm</mat-option>
+        <mat-option value="GAME">content.dialog.optionGame</mat-option>
       </mat-select>
       <mat-error *ngIf="form.controls.contentType.invalid && form.controls.contentType.touched">
         <span translate>content.dialog.contentTypeRequired</span>
@@ -43,7 +44,12 @@
   <div fxLayoutAlign="end">
     <mat-dialog-actions fxLayoutGap="1rem">
       <button mat-raised-button (click)="close()">Close</button>
-      <button mat-raised-button color="primary" [disabled]="form.invalid" (click)="save()">Save</button>
+      <button mat-raised-button color="primary" *ngIf="!isEditor" [disabled]="form.invalid" (click)="save()">
+        Save
+      </button>
+      <button mat-raised-button color="primary" *ngIf="isEditor" [disabled]="form.invalid" (click)="update()">
+        Update
+      </button>
     </mat-dialog-actions>
   </div>
 </div>

@@ -20,12 +20,16 @@ export class HomeComponent implements OnInit {
   isLoading = false;
 
   contents$: Observable<Content[]>;
+  contents: Content[] = [];
+  searchFilter: string = '';
 
   constructor(private contentService: ContentService, private dialog: MatDialog, private quoteService: QuoteService) {
     this.contents$ = contentService.contents$;
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.contents$.subscribe((r) => (this.contents = r));
+  }
 
   createContent() {
     const dialogConfig = new MatDialogConfig();
@@ -33,13 +37,25 @@ export class HomeComponent implements OnInit {
     dialogConfig.autoFocus = true;
     dialogConfig.width = '40%';
     dialogConfig.height = '50%';
-    dialogConfig.data = {
-      name: 'hola',
-    };
+    dialogConfig.data = {};
     this.dialog.open(ContentDialogComponent, dialogConfig);
   }
 
-  deleteAccount(content: Content) {
+  deleteContent(content: Content) {
     this.contentService.deleteContent(content);
+  }
+
+  editContent(content: Content) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = '40%';
+    dialogConfig.height = '50%';
+    dialogConfig.data = content;
+    this.dialog.open(ContentDialogComponent, dialogConfig);
+  }
+
+  applyFilter(data: string) {
+    this.searchFilter = data;
   }
 }
