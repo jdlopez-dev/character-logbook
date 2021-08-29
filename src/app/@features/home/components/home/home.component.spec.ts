@@ -6,7 +6,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { SharedModule } from '@shared';
 import { MaterialModule } from '@app/material.module';
 import { HomeComponent } from './home.component';
-import { QuoteService } from './quote.service';
+import { QuoteService } from '../../quote.service';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
