@@ -28,7 +28,7 @@ export class AuthenticationService {
     await this.afAuth.setPersistence(persistence);
     return from(
       this.afAuth.signInWithEmailAndPassword(context.email, context.password).then((data) => {
-        const userCredential: UserCredential = this.GetUserCredential(data.user);
+        const userCredential: UserCredential = this.getUserCredential(data.user);
         this.credentialsService.setCredentials(userCredential, context.remember);
         return userCredential;
       })
@@ -39,7 +39,7 @@ export class AuthenticationService {
     console.log(context);
     return from(
       this.afAuth.createUserWithEmailAndPassword(context.email, context.password).then((data) => {
-        const userCredential: UserCredential = this.GetUserCredential(data.user);
+        const userCredential: UserCredential = this.getUserCredential(data.user);
         this.credentialsService.setCredentials(userCredential, context.remember);
         return userCredential;
       })
@@ -64,7 +64,7 @@ export class AuthenticationService {
     return context.remember ? firebase.auth?.Auth.Persistence.LOCAL : firebase.auth?.Auth.Persistence.SESSION;
   }
 
-  private GetUserCredential(user: firebase.User | null): UserCredential {
+  private getUserCredential(user: firebase.User | null): UserCredential {
     return {
       displayName: user?.displayName,
       email: user?.email,
