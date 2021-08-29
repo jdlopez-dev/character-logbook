@@ -1,7 +1,7 @@
 import { Routes, Route } from '@angular/router';
-
 import { AuthenticationGuard } from '@features/auth';
 import { ShellComponent } from './shell.component';
+import { AngularFireAuthGuard } from '@angular/fire/auth-guard';
 
 /**
  * Provides helper methods to create routes.
@@ -17,7 +17,7 @@ export class Shell {
       path: '',
       component: ShellComponent,
       children: routes,
-      canActivate: [AuthenticationGuard],
+      canActivate: [AuthenticationGuard, AngularFireAuthGuard],
     };
   }
 }

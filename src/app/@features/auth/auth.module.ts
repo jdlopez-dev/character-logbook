@@ -20,7 +20,6 @@ import { LoginComponent } from './components/login/login.component';
     FlexLayoutModule,
     MaterialModule,
     I18nModule,
-    AngularFireAuthModule,
     AuthRoutingModule,
   ],
   declarations: [LoginComponent],

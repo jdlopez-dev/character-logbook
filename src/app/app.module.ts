@@ -16,6 +16,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { environment } from '@env/environment';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 
 @NgModule({
   imports: [
@@ -31,6 +32,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
     HomeModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
+    AngularFireAuthModule,
     AuthModule,
     AppRoutingModule, // must be imported as the last module as it contains the fallback route
   ],
