@@ -17,11 +17,11 @@ import { CredentialsService } from '../credentials/credentials.service';
 })
 export class AuthenticationService {
   constructor(private afAuth: AngularFireAuth, private credentialsService: CredentialsService) {
-    this.afAuth.onAuthStateChanged((credential) => {
-      if (!credential) {
-        this.credentialsService.setCredentials();
-      }
-    });
+    // this.afAuth.onAuthStateChanged((credential) => {
+    //   if (!credential) {
+    //     this.credentialsService.setCredentials();
+    //   }
+    // });
   }
 
   /**
