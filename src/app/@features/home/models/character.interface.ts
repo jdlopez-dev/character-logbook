@@ -1,4 +1,6 @@
 export interface Character {
+  idCharacter?: string | null;
   name: string;
-  lastName?: string | null;
+  description?: string | null;
+  nickname?: string | null;
 }

@@ -1,7 +1,14 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection, DocumentReference } from '@angular/fire/firestore';
+import {
+  AngularFirestore,
+  AngularFirestoreCollection,
+  DocumentChangeAction,
+  DocumentReference,
+} from '@angular/fire/firestore';
 import { CredentialsService } from '@app/@features/auth';
+import { User } from '@app/@shared/models/user-interface';
 import { from, Observable, of } from 'rxjs';
+import { Character } from '../models/character.interface';
 import { Content } from '../models/content.interface';
 
 @Injectable({
@@ -9,12 +16,15 @@ import { Content } from '../models/content.interface';
 })
 export class ContentService {
   private contentCollection: AngularFirestoreCollection<Content>;
+  private characterCollection!: AngularFirestoreCollection<Character>;
+
   contents$: Observable<Content[]>;
 
   constructor(private readonly afs: AngularFirestore, private credentialsService: CredentialsService) {
     const uid = credentialsService.credentials?.uid;
-    const userRef = this.afs.collection('user').doc(uid);
-    this.contentCollection = userRef.collection<Content>('content', (ref) => ref.orderBy('dateCreated'));
+    const userRef = this.afs.collection<User>('users').doc(uid);
+    this.contentCollection = userRef.collection<Content>('contents', (ref) => ref.orderBy('dateCreated'));
+
     this.contents$ = this.contentCollection.valueChanges({ idField: 'id' });
   }
 
@@ -34,5 +44,21 @@ export class ContentService {
       return this.contentCollection.doc(content.id).update(content);
     }
     return null;
+  }
+
+  getCharacters(idContent: string): Observable<Character[]> {
+    this.characterCollection = this.contentCollection.doc(idContent).collection('characters');
+    return this.characterCollection.valueChanges({ idField: 'idCharacter' });
+  }
+
+  addCharacter(character: Character) {
+    return from(this.characterCollection.add(character));
+  }
+
+  deleteCharacter(character: Character) {
+    console.log(character.idCharacter);
+    if (character.idCharacter) {
+      this.characterCollection.doc(character.idCharacter).delete();
+    }
   }
 }

@@ -16,7 +16,13 @@ import { CredentialsService } from '../credentials/credentials.service';
   providedIn: 'root',
 })
 export class AuthenticationService {
-  constructor(private afAuth: AngularFireAuth, private credentialsService: CredentialsService) {}
+  constructor(private afAuth: AngularFireAuth, private credentialsService: CredentialsService) {
+    this.afAuth.onAuthStateChanged((credential) => {
+      if (!credential) {
+        this.credentialsService.setCredentials();
+      }
+    });
+  }
 
   /**
    * Authenticates the user.
@@ -36,7 +42,6 @@ export class AuthenticationService {
   }
 
   signUp(context: LoginContext): Observable<UserCredential> {
-    console.log(context);
     return from(
       this.afAuth.createUserWithEmailAndPassword(context.email, context.password).then((data) => {
         const userCredential: UserCredential = this.getUserCredential(data.user);

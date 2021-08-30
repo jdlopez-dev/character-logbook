@@ -16,3 +16,7 @@ q {
 .mat-card {
   min-height: 20rem;
 }
+
+.selected {
+  color: mat-color($app-primary);
+}

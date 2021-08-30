@@ -11,6 +11,7 @@ export class SearchPipePipe implements PipeTransform {
     }
     return items.filter(
       (item) =>
+        item.id === filter ||
         item.name.toLocaleLowerCase().indexOf(filter.toLocaleLowerCase()) !== -1 ||
         (item.description && item.description.toLocaleLowerCase().indexOf(filter.toLocaleLowerCase()) !== -1)
     );
