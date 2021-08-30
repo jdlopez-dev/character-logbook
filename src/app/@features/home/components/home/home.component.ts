@@ -10,6 +10,8 @@ import { Logger, UntilDestroy, untilDestroyed } from '@shared';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { CharacterDialogComponent } from '../character-dialog/character-dialog.component';
 import { Character } from '../../models/character.interface';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslateService } from '@ngx-translate/core';
 
 const log = new Logger('Home');
 @UntilDestroy()
@@ -29,12 +31,16 @@ export class HomeComponent implements OnInit {
   searchFilter: string = '';
   selectContent = false;
 
+  searchFilterCharacter = '';
+
   constructor(
+    private translateService: TranslateService,
     public router: Router,
     public route: ActivatedRoute,
     private contentService: ContentService,
     private dialog: MatDialog,
-    private quoteService: QuoteService
+    private quoteService: QuoteService,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit() {
@@ -55,7 +61,11 @@ export class HomeComponent implements OnInit {
   }
 
   deleteContent(content: Content) {
-    this.contentService.deleteContent(content);
+    if (this.contentService.deleteContent(content)) {
+      this.snackBar.open(this.translateService.instant('content.dialog.delete'), '', {
+        duration: 5000,
+      });
+    }
   }
 
   editContent(content: Content) {
@@ -78,6 +88,7 @@ export class HomeComponent implements OnInit {
       this.searchFilter = '';
       this.characters = [];
       this.selectedCharacter = '';
+      this.searchFilterCharacter = '';
     } else {
       this.searchFilter = data.id ?? '';
       this.selectedCharacter = data.id ?? '';
@@ -101,6 +112,14 @@ export class HomeComponent implements OnInit {
   }
 
   deleteCharacter(character: Character) {
-    this.contentService.deleteCharacter(character);
+    if (this.contentService.deleteCharacter(character)) {
+      this.snackBar.open(this.translateService.instant('content.dialog.delete'), '', {
+        duration: 5000,
+      });
+    }
+  }
+
+  applyFilterCharacter(text: string) {
+    this.searchFilterCharacter = text;
   }
 }

@@ -33,10 +33,12 @@ export class ContentService {
     return from(this.contentCollection.add(content));
   }
 
-  deleteContent(content: Content): void {
+  deleteContent(content: Content): boolean {
     if (content.id) {
       this.contentCollection.doc(content.id).delete();
+      return true;
     }
+    return false;
   }
 
   updateContent(content: Content): Promise<void> | null {
@@ -55,10 +57,11 @@ export class ContentService {
     return from(this.characterCollection.add(character));
   }
 
-  deleteCharacter(character: Character) {
-    console.log(character.idCharacter);
+  deleteCharacter(character: Character): boolean {
     if (character.idCharacter) {
       this.characterCollection.doc(character.idCharacter).delete();
+      return true;
     }
+    return false;
   }
 }

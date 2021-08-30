@@ -11,6 +11,7 @@ import { ContentDialogComponent } from './components/content-dialog/content-dial
 import { ReactiveFormsModule } from '@angular/forms';
 import { SearchPipePipe } from './pipes/search-pipe.pipe';
 import { CharacterDialogComponent } from './components/character-dialog/character-dialog.component';
+import { CharacterSearchPipePipe } from './pipes/character-search-pipe.pipe';
 
 @NgModule({
   imports: [
@@ -22,6 +23,12 @@ import { CharacterDialogComponent } from './components/character-dialog/characte
     HomeRoutingModule,
     ReactiveFormsModule,
   ],
-  declarations: [HomeComponent, ContentDialogComponent, SearchPipePipe, CharacterDialogComponent],
+  declarations: [
+    HomeComponent,
+    ContentDialogComponent,
+    SearchPipePipe,
+    CharacterDialogComponent,
+    CharacterSearchPipePipe,
+  ],
 })
 export class HomeModule {}

@@ -64,7 +64,7 @@
       <mat-card-header fxLayout="row" *ngIf="selectContent">
         <mat-icon fxLayoutAlign="space-between" aria-hidden="false" aria-label="add">search</mat-icon>
         <mat-form-field fxFlex="89">
-          <input matInput #txtVal (keyup)="applyFilter(txtVal.value)" placeholder="filter" />
+          <input matInput #txtVal (keyup)="applyFilterCharacter(txtVal.value)" placeholder="filter" />
         </mat-form-field>
         <div fxFlex="10" fxLayoutAlign="end">
           <button (click)="createCharacter()" color="primary" mat-mini-fab>

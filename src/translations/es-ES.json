@@ -14,6 +14,7 @@
   "character.dialog.title.creation": "Creando personaje",
   "character.dialog.title.edit": "Editando personaje",
   "content.dialog.contentTypeRequired": "El tipo de contenido es obligatorio",
+  "content.dialog.delete": "Eliminado con éxito",
   "content.dialog.nameRequired": "El nombre del contenido es obligatorio",
   "content.dialog.optionBook": "Libro",
   "content.dialog.optionFilm": "Películas",

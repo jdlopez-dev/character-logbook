@@ -14,6 +14,7 @@
   "character.dialog.title.creation": "Creating a character",
   "character.dialog.title.edit": "Editing character",
   "content.dialog.contentTypeRequired": "Select a content type",
+  "content.dialog.delete": "Successfully removed",
   "content.dialog.nameRequired": "Enter a valid name",
   "content.dialog.optionBook": "Book",
   "content.dialog.optionFilm": "Movies",
