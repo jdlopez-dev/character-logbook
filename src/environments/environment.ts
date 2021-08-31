@@ -16,6 +16,14 @@ export const environment = {
   serverUrl: '/api',
   defaultLanguage: 'en-US',
   supportedLanguages: ['en-US', 'es-ES'],
+  firebaseConfig: {
+    apiKey: env.FIREBASE_API_KEY,
+    authDomain: env.FIREBASE_AUTH_DOMAIN,
+    projectId: 'character-logbook',
+    storageBucket: 'character-logbook.appspot.com',
+    messagingSenderId: '947515236319',
+    appId: env.FIREBASE_APP_ID,
+  },
 };
 
 /*

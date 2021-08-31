@@ -1,0 +1,55 @@
+<div fxLayout="column" fxLayoutAlign="space-around">
+  <h2 mat-dialog-title fxLayoutAlign="center">
+    {{ (isEditor ? 'content.dialog.title.edit' : 'content.dialog.title.creation') | translate }}
+  </h2>
+  <mat-dialog-content [formGroup]="form">
+    <div class="login-error" [hidden]="!error" translate>login.error</div>
+    <br />
+    <mat-form-field [hideRequiredMarker]="true">
+      <input
+        type="string"
+        matInput
+        formControlName="name"
+        autocomplete="name"
+        [placeholder]="'content.dialog.placeholderName' | translate"
+        required
+      />
+      <mat-error *ngIf="form.controls.name.invalid && form.controls.name.touched">
+        <span translate>content.dialog.nameRequired</span>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field [hideRequiredMarker]="true" appearance="fill">
+      <mat-label translate>content.dialog.placeholderContentType</mat-label>
+      <mat-select formControlName="contentType" required>
+        <mat-option value="BOOK" translate>content.dialog.optionBook</mat-option>
+        <mat-option value="FILM" translate>content.dialog.optionFilm</mat-option>
+        <mat-option value="GAME" translate>content.dialog.optionGame</mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.controls.contentType.invalid && form.controls.contentType.touched">
+        <span translate>content.dialog.contentTypeRequired</span>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <textarea
+        type="textarea"
+        matInput
+        formControlName="description"
+        autocomplete="description"
+        [placeholder]="'content.dialog.placeholderDescription' | translate"
+      >
+      </textarea>
+    </mat-form-field>
+  </mat-dialog-content>
+
+  <div fxLayoutAlign="end">
+    <mat-dialog-actions fxLayoutGap="1rem">
+      <button mat-raised-button (click)="close()">Close</button>
+      <button mat-raised-button color="primary" *ngIf="!isEditor" [disabled]="form.invalid" (click)="save()">
+        Save
+      </button>
+      <button mat-raised-button color="primary" *ngIf="isEditor" [disabled]="form.invalid" (click)="update()">
+        Update
+      </button>
+    </mat-dialog-actions>
+  </div>
+</div>

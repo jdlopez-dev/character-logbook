@@ -1,0 +1,106 @@
+<div fxLayout="column">
+  <div class="container">
+    <mat-card fxLayout="column" fxLayoutGap="1rem">
+      <h2 translate>Contents</h2>
+      <mat-card-header fxLayout="row" *ngIf="!selectContent">
+        <div fxFlex="90" fxFlex fxLayoutAlign="end center">
+          <mat-icon aria-hidden="false" aria-label="add">search</mat-icon>
+        </div>
+        <mat-form-field fxFlex="90">
+          <input matInput #txtVal (keyup)="applyFilter(txtVal.value)" placeholder="filter" />
+        </mat-form-field>
+        <div fxFlex="7" fxLayoutAlign="end">
+          <button (click)="createContent()" color="primary" mat-mini-fab>
+            <mat-icon aria-hidden="false" aria-label="add">add_circle</mat-icon>
+          </button>
+        </div>
+      </mat-card-header>
+      <div class="content" *ngIf="contents">
+        <div fxLayout="row wrap" fxLayoutGap="1rem grid">
+          <div
+            [fxFlex]="100 / 4 + '%'"
+            fxFlex.xs="100%"
+            fxFlex.sm="33%"
+            *ngFor="let content of contents | searchPipe: searchFilter"
+          >
+            <mat-card class="mat-elevation-z4" fxLayout="column" fxLayoutAlign="space-between">
+              <mat-card-header fxLayoutAlign="space-between center">
+                <mat-card-title>{{ content.name }}</mat-card-title>
+                <mat-icon aria-hidden="false" *ngIf="content.contentType === 'BOOK'" aria-label="add"
+                  >chrome_reader_mode</mat-icon
+                >
+                <mat-icon aria-hidden="false" *ngIf="content.contentType === 'FILM'" aria-label="add"
+                  >video_library</mat-icon
+                >
+                <mat-icon aria-hidden="false" *ngIf="content.contentType === 'GAME'" aria-label="add">games</mat-icon>
+              </mat-card-header>
+              <!-- <img mat-card-image src="assets/brand.png"> -->
+              <mat-card-content>
+                <p>{{ content.description }}</p>
+              </mat-card-content>
+              <mat-card-actions fxLayoutAlign="space-between end">
+                <button mat-button [ngClass]="{ selected: selectContent }" (click)="goToDetails(content)">
+                  <mat-icon aria-hidden="false" aria-label="add">visibility</mat-icon>
+                </button>
+                <button mat-button (click)="editContent(content)">
+                  <mat-icon aria-hidden="false" aria-label="add">edit</mat-icon>
+                </button>
+                <button mat-button (click)="deleteContent(content)">
+                  <mat-icon aria-hidden="false" color="accent" aria-label="add">delete</mat-icon>
+                </button>
+              </mat-card-actions>
+            </mat-card>
+          </div>
+        </div>
+      </div>
+    </mat-card>
+    <ng-template #loading>
+      <app-loader [isLoading]="true" [size]="5"></app-loader>
+    </ng-template>
+  </div>
+  <div class="container" *ngIf="selectContent">
+    <mat-card fxLayout="column" fxLayoutGap="1rem">
+      <h2>Personajes</h2>
+      <mat-card-header fxLayout="row" *ngIf="selectContent">
+        <mat-icon fxLayoutAlign="space-between" aria-hidden="false" aria-label="add">search</mat-icon>
+        <mat-form-field fxFlex="89">
+          <input matInput #txtVal (keyup)="applyFilterCharacter(txtVal.value)" placeholder="filter" />
+        </mat-form-field>
+        <div fxFlex="10" fxLayoutAlign="end">
+          <button (click)="createCharacter()" color="primary" mat-mini-fab>
+            <mat-icon aria-hidden="false" aria-label="add">add_circle</mat-icon>
+          </button>
+        </div>
+      </mat-card-header>
+      <div class="content" *ngIf="contents">
+        <div fxLayout="row wrap" fxLayoutGap="1rem grid">
+          <div [fxFlex]="100 / 4 + '%'" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let character of characters">
+            <mat-card class="mat-elevation-z4" fxLayout="column" fxLayoutAlign="space-between">
+              <mat-card-header fxLayoutAlign="space-between center">
+                <mat-card-title>{{ character.name }}</mat-card-title>
+              </mat-card-header>
+              <!-- <img mat-card-image src="assets/brand.png"> -->
+              <mat-card-content>
+                <p>{{ character.description }}</p>
+              </mat-card-content>
+              <mat-card-actions fxLayoutAlign="space-between end">
+                <!-- <button mat-button  [ngClass]="{'selected': selectContent}"  (click)="goToDetails(content)">
+                  <mat-icon aria-hidden="false" aria-label="add">visibility</mat-icon>
+                </button>
+                <button mat-button (click)="editContent(content)">
+                  <mat-icon aria-hidden="false" aria-label="add">edit</mat-icon>
+                </button> -->
+                <button mat-button (click)="deleteCharacter(character)">
+                  <mat-icon aria-hidden="false" color="accent" aria-label="add">delete</mat-icon>
+                </button>
+              </mat-card-actions>
+            </mat-card>
+          </div>
+        </div>
+      </div>
+    </mat-card>
+    <ng-template #loading>
+      <app-loader [isLoading]="true" [size]="5"></app-loader>
+    </ng-template>
+  </div>
+</div>

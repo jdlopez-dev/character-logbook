@@ -1,0 +1,22 @@
+@import "src/theme/theme-variables";
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+}
+
+.brand {
+  height: 95%;
+  width: auto;
+  cursor: pointer;
+  background: mat-color($app-primary, "lighter");
+  border-radius: 0.5rem;
+  padding: 0.3rem;
+}
+
+.menu-button {
+  margin-right: 1rem;
+}
