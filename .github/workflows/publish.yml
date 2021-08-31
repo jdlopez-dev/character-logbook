@@ -47,7 +47,7 @@ jobs:
           build_configuration: production
           base_href: /character-logbook/ 
           deploy_branch: gh-pages 
-          angular_dist_build_folder: dist/character-logbook
+          angular_dist_build_folder: dist/
           run_lint: true
         env:
           FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
