@@ -13,11 +13,11 @@ export const environment = {
   defaultLanguage: 'en-US',
   supportedLanguages: ['en-US', 'es-ES'],
   firebaseConfig: {
-    apiKey: env.FIREBASE_API_KEY,
-    authDomain: env.FIREBASE_AUTH_DOMAIN,
+    apiKey: 'AIzaSyC7FQ36DoWH0xenPzMDcErPsvOmsjrG2Ko',
+    authDomain: 'character-logbook.firebaseapp.com',
     projectId: 'character-logbook',
     storageBucket: 'character-logbook.appspot.com',
     messagingSenderId: '947515236319',
-    appId: env.FIREBASE_APP_ID,
+    appId: '1:947515236319:web:8b68ba2e7bd265c7ea2e6a',
   },
 };
