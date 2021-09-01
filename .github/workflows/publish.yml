@@ -41,6 +41,7 @@ jobs:
           FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
       - run: npm install
       - run: npm run write:env
+      - run: echo ${{ secrets.FIREBASE_API_KEY }}
       - name: Angular Deploy gh-pages Actions
         uses: AhsanAyaz/angular-deploy-gh-pages-actions@v1.3.2
         with:
@@ -48,5 +49,5 @@ jobs:
           build_configuration: production
           base_href: /character-logbook/
           deploy_branch: gh-pages 
-          angular_dist_build_folder: dist/ 
+          angular_dist_build_folder: dist/
           run_lint: true
