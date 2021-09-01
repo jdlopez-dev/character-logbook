@@ -48,5 +48,5 @@ jobs:
           build_configuration: production
           base_href: /character-logbook/
           deploy_branch: gh-pages 
-          angular_dist_build_folder: dist/
+          angular_dist_build_folder: dist/ 
           run_lint: true
