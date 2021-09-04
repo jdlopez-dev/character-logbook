@@ -21,9 +21,9 @@
     <mat-form-field [hideRequiredMarker]="true" appearance="fill">
       <mat-label translate>content.dialog.placeholderContentType</mat-label>
       <mat-select formControlName="contentType" required>
-        <mat-option value="BOOK" translate>content.dialog.optionBook</mat-option>
-        <mat-option value="FILM" translate>content.dialog.optionFilm</mat-option>
-        <mat-option value="GAME" translate>content.dialog.optionGame</mat-option>
+        <mat-option value="BOOK">{{ 'content.dialog.optionBook' | translate }}</mat-option>
+        <mat-option value="FILM">{{ 'content.dialog.optionFilm' | translate }}</mat-option>
+        <mat-option value="GAME">{{ 'content.dialog.optionGame' | translate }}</mat-option>
       </mat-select>
       <mat-error *ngIf="form.controls.contentType.invalid && form.controls.contentType.touched">
         <span translate>content.dialog.contentTypeRequired</span>
